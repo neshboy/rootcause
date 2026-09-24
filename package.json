@@ -1,0 +1,45 @@
+{
+  "name": "rootcause",
+  "version": "0.1.0",
+  "description": "Terminal tool that correlates Docker container exit codes, orchestrator events, and recent deploys into a ranked root-cause hypothesis - instead of manually grepping docker inspect/events/logs by hand.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "rootcause": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "pretest": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:live": "vitest run --config vitest.live.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "docker",
+    "root-cause",
+    "cli",
+    "devops",
+    "troubleshooting",
+    "sre",
+    "terminal"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vitest": "^5.0.1"
+  }
+}
