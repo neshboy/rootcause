@@ -1,0 +1,31 @@
+[
+  {
+    "Id": "0000ffffeeee1111ddddcccc2222bbbb3333aaaa4444999955556666aaaa7777",
+    "Created": "2026-09-24T09:00:00.000000000Z",
+    "Path": "/bin/sh",
+    "Args": ["-c", "echo migrating; sleep 1; echo done"],
+    "Name": "/db-migration-job",
+    "Image": "sha256:eeee1111dddd2222cccc3333bbbb4444aaaa5555999966667777888899990000",
+    "RestartCount": 0,
+    "State": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-24T09:00:00.100000000Z",
+      "FinishedAt": "2026-09-24T09:00:01.100000000Z"
+    },
+    "HostConfig": {
+      "Memory": 0,
+      "RestartPolicy": { "Name": "no", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "db-migration:latest"
+    }
+  }
+]

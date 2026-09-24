@@ -1,0 +1,31 @@
+[
+  {
+    "Id": "bbbb2222cccc3333dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999",
+    "Created": "2026-09-24T11:00:00.000000000Z",
+    "Path": "/bin/sh",
+    "Args": ["-c", "echo boom; exit 1"],
+    "Name": "/exit-one",
+    "Image": "sha256:2222bbbb3333cccc4444dddd5555eeee6666ffff7777aaaa8888bbbb9999cccc",
+    "RestartCount": 0,
+    "State": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 1,
+      "Error": "",
+      "StartedAt": "2026-09-24T11:00:01.000000000Z",
+      "FinishedAt": "2026-09-24T11:00:01.500000000Z"
+    },
+    "HostConfig": {
+      "Memory": 0,
+      "RestartPolicy": { "Name": "no", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "exit-one:latest"
+    }
+  }
+]

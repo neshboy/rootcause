@@ -1,0 +1,43 @@
+[
+  {
+    "Id": "ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111ffff2222aaaa3333",
+    "Created": "2026-09-21T09:00:00.000000000Z",
+    "Path": "docker-entrypoint.sh",
+    "Args": ["redis-server"],
+    "Name": "/steady-redis",
+    "Image": "sha256:6666ffff7777aaaa8888bbbb9999cccc0000dddd1111eeee2222ffff3333aaaa",
+    "RestartCount": 0,
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 999,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-21T09:00:01.000000000Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-09-24T13:59:00.000000000Z",
+            "End": "2026-09-24T13:59:00.100000000Z",
+            "ExitCode": 0,
+            "Output": "PONG\n"
+          }
+        ]
+      }
+    },
+    "HostConfig": {
+      "Memory": 268435456,
+      "RestartPolicy": { "Name": "unless-stopped", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "redis:7-alpine"
+    }
+  }
+]

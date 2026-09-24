@@ -1,0 +1,31 @@
+[
+  {
+    "Id": "aaaa1111bbbb2222cccc3333dddd4444eeee5555ffff6666aaaa7777bbbb8888",
+    "Created": "2026-09-24T10:00:00.000000000Z",
+    "Path": "python3",
+    "Args": ["leaky.py"],
+    "Name": "/oom-victim",
+    "Image": "sha256:1111aaaa2222bbbb3333cccc4444dddd5555eeee6666ffff7777aaaa8888bbbb",
+    "RestartCount": 1,
+    "State": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": true,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-09-24T10:00:01.000000000Z",
+      "FinishedAt": "2026-09-24T10:00:47.000000000Z"
+    },
+    "HostConfig": {
+      "Memory": 33554432,
+      "RestartPolicy": { "Name": "no", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "oom-victim:latest"
+    }
+  }
+]

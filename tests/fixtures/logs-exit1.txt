@@ -1,0 +1,4 @@
+Starting up...
+Connecting to database at db:5432
+Connection refused: could not connect to server
+boom

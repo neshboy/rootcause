@@ -1,0 +1,58 @@
+[
+  {
+    "Id": "cccc3333dddd4444eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000",
+    "Created": "2026-09-24T12:00:00.000000000Z",
+    "Path": "nginx",
+    "Args": ["-g", "daemon off;"],
+    "Name": "/unhealthy-web",
+    "Image": "sha256:3333cccc4444dddd5555eeee6666ffff7777aaaa8888bbbb9999cccc0000dddd",
+    "RestartCount": 0,
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 4242,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-24T12:00:01.000000000Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 6,
+        "Log": [
+          {
+            "Start": "2026-09-24T12:04:00.000000000Z",
+            "End": "2026-09-24T12:04:00.300000000Z",
+            "ExitCode": 7,
+            "Output": "curl: (7) Failed to connect to localhost port 8080: Connection refused\n"
+          },
+          {
+            "Start": "2026-09-24T12:04:30.000000000Z",
+            "End": "2026-09-24T12:04:30.300000000Z",
+            "ExitCode": 7,
+            "Output": "curl: (7) Failed to connect to localhost port 8080: Connection refused\n"
+          },
+          {
+            "Start": "2026-09-24T12:05:00.000000000Z",
+            "End": "2026-09-24T12:05:00.300000000Z",
+            "ExitCode": 7,
+            "Output": "curl: (7) Failed to connect to localhost port 8080: Connection refused\n"
+          }
+        ]
+      }
+    },
+    "HostConfig": {
+      "Memory": 0,
+      "RestartPolicy": { "Name": "unless-stopped", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "unhealthy-web:latest",
+      "Healthcheck": {
+        "Test": ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      }
+    }
+  }
+]

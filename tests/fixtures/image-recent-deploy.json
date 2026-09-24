@@ -1,0 +1,8 @@
+[
+  {
+    "Id": "sha256:cccccccc1111222233334444555566667777888899990000aaaabbbbccccdddd",
+    "Created": "2026-09-24T12:58:00.000000000Z",
+    "RepoTags": ["api:latest"],
+    "RepoDigests": ["api@sha256:cccccccc1111222233334444555566667777888899990000aaaabbbbccccdddd"]
+  }
+]

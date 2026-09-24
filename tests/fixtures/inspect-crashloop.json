@@ -1,0 +1,31 @@
+[
+  {
+    "Id": "eeee5555ffff6666aaaa7777bbbb8888cccc9999dddd0000eeee1111ffff2222",
+    "Created": "2026-09-24T09:00:00.000000000Z",
+    "Path": "/app/worker",
+    "Args": [],
+    "Name": "/flaky-worker",
+    "Image": "sha256:5555eeee6666ffff7777aaaa8888bbbb9999cccc0000dddd1111eeee2222ffff",
+    "RestartCount": 7,
+    "State": {
+      "Status": "restarting",
+      "Running": false,
+      "Paused": false,
+      "Restarting": true,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 1,
+      "Error": "",
+      "StartedAt": "2026-09-24T09:10:40.000000000Z",
+      "FinishedAt": "2026-09-24T09:10:41.000000000Z"
+    },
+    "HostConfig": {
+      "Memory": 0,
+      "RestartPolicy": { "Name": "always", "MaximumRetryCount": 0 }
+    },
+    "Config": {
+      "Image": "flaky-worker:latest"
+    }
+  }
+]
