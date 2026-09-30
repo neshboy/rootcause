@@ -35,18 +35,6 @@ export function lastLines(text: string, n: number): string[] {
   return nonEmpty.slice(Math.max(0, nonEmpty.length - n));
 }
 
-/** Formats a millisecond duration as a short, human-readable relative string. */
-export function humanDuration(ms: number): string {
-  const absMs = Math.abs(ms);
-  const seconds = absMs / 1000;
-  if (seconds < 60) return `${seconds.toFixed(0)}s`;
-  const minutes = seconds / 60;
-  if (minutes < 60) return `${minutes.toFixed(1)}m`;
-  const hours = minutes / 60;
-  if (hours < 48) return `${hours.toFixed(1)}h`;
-  return `${(hours / 24).toFixed(1)}d`;
-}
-
 /** Shortens a "sha256:abcdef..." image ID/digest to a short, readable form. */
 export function shortDigest(digest: string | undefined | null): string {
   if (!digest) return "unknown";
