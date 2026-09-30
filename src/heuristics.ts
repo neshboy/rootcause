@@ -159,6 +159,21 @@ const recentDeployCorrelation: Heuristic = {
     const gapMinutes = gapMs / 60000;
     if (gapMinutes > 30) return null;
 
+    // Docker resets State.StartedAt to "now" on every restart-policy-driven
+    // auto-restart, so a container stuck in a restart loop for weeks would
+    // otherwise still show a tiny StartedAt-to-failure gap on every check.
+    // Only treat this as an actual (re)deploy when the container itself is
+    // fresh: either this is its true first start (RestartCount === 0), or
+    // it was only just created (Container.Created is itself close to
+    // State.StartedAt) - as opposed to an old container that just happened
+    // to restart recently.
+    const created = parseDockerTime(ctx.inspect.Created);
+    const createdToStartGapMinutes = created ? (startedAt.getTime() - created.getTime()) / 60000 : null;
+    const isFreshContainer =
+      ctx.inspect.RestartCount === 0 ||
+      (createdToStartGapMinutes !== null && createdToStartGapMinutes >= 0 && createdToStartGapMinutes <= 30);
+    if (!isFreshContainer) return null;
+
     const evidence = [
       `Container.Created=${ctx.inspect.Created}, State.StartedAt=${ctx.inspect.State.StartedAt}`,
       `First failure signal at ${onset.toISOString()} - ${gapMinutes.toFixed(1)} minute(s) after start`,
@@ -209,7 +224,7 @@ const crashLoop: Heuristic = {
       const first = dieEvents[0].time;
       const last = dieEvents[dieEvents.length - 1].time;
       const spanSeconds = last - first;
-      const avgGapSeconds = dieEvents.length > 1 ? spanSeconds / (dieEvents.length - 1) : spanSeconds;
+      const avgGapSeconds = spanSeconds / (dieEvents.length - 1);
       evidence.push(
         `${dieEvents.length} "die" events observed in the queried window, ~${avgGapSeconds.toFixed(0)}s apart on average`,
       );

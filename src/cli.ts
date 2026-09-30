@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { collectDiagnosisContext } from "./collector.js";
-import { isDockerAvailable, listAllContainerNames } from "./docker.js";
+import { fetchAllEvents, isDockerAvailable, listAllContainerNames } from "./docker.js";
 import { diagnose } from "./engine.js";
 import { formatDiagnosis, formatScanReport } from "./formatter.js";
 import type { DiagnosisContext } from "./heuristics.js";
@@ -152,7 +152,12 @@ async function runDiagnose(argv: string[]): Promise<number> {
     }
   }
 
-  console.log(formatDiagnosis(diagnose(ctx)));
+  try {
+    console.log(formatDiagnosis(diagnose(ctx)));
+  } catch (err) {
+    console.error(`rootcause: ${(err as Error).message}`);
+    return 1;
+  }
   return 0;
 }
 
@@ -169,10 +174,18 @@ async function runScan(): Promise<number> {
     return 0;
   }
 
+  const eventsWindowMinutes = 60;
+  const now = new Date();
+  const sinceIso = new Date(now.getTime() - eventsWindowMinutes * 60_000).toISOString();
+  const untilIso = now.toISOString();
+  // One daemon-wide `docker events` call, grouped by container inside
+  // collectDiagnosisContext, instead of N per-container subprocesses.
+  const allEvents = await fetchAllEvents(sinceIso, untilIso).catch(() => []);
+
   const diagnoses = await Promise.all(
     names.map(async (name) => {
       try {
-        const ctx = await collectDiagnosisContext(name);
+        const ctx = await collectDiagnosisContext(name, now, eventsWindowMinutes, allEvents);
         return diagnose(ctx);
       } catch (err) {
         return {
@@ -217,7 +230,13 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
 
 const isMainModule = process.argv[1] !== undefined && fileURLToPath(import.meta.url) === process.argv[1];
 if (isMainModule) {
-  main().then((code) => {
-    process.exitCode = code;
-  });
+  main().then(
+    (code) => {
+      process.exitCode = code;
+    },
+    (err) => {
+      console.error(`rootcause: unexpected error: ${(err as Error).message}`);
+      process.exitCode = 1;
+    },
+  );
 }
